@@ -1,1 +1,1 @@
-# vDUNE.Avatar
+# vDUNE Avatar
