@@ -59,7 +59,7 @@ ADuneAvatar::ADuneAvatar(const FObjectInitializer& ObjectInitializer)
 
     // Create a follow camera
     follow_camera_ = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
-    follow_camera_->SetupAttachment(follow_camera_, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
+    follow_camera_->SetupAttachment(camera_boom_, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
     follow_camera_->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
     // Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character)
