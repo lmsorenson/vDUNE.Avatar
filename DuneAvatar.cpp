@@ -11,15 +11,15 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
-//#include "vDuneCore/Public/Avatar/Interfaces/Pickup/PickupActor.h"
-//#include "vDuneCore/Public/Avatar/Interfaces/Pickup/PickupModel.h"
+#include "vDune_Avatar/Pickup/PickupActor.h"
+#include "vDUNE_Avatar/Pickup/PickupModel.h"
 //#include "vDuneCore/Public/Avatar/Interfaces/Observable/ObservableActor.h"
 //#include "vDuneCore/Public/Avatar/Interfaces/ViableInteraction.h"
 //#include "vDuneCore/Public/Avatar/Interfaces/Tools/AvatarTool.h"
 //#include "vDuneCore/Public/Avatar/Interfaces/Tools/MeasureTool.h"
 //#include "vDuneCore/Public/Avatar/Interfaces/Menus/AvatarMenu.h"
 //#include "vDuneCore/Public/Decorator/UserName.h"
-//#include "Blueprint/UserWidget.h"
+#include "Blueprint/UserWidget.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -65,9 +65,9 @@ ADuneAvatar::ADuneAvatar(const FObjectInitializer& ObjectInitializer)
     // Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character)
     // are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
-//	collection_sphere_ = CreateDefaultSubobject<USphereComponent>(TEXT("CollectionSphere"));
-//	collection_sphere_->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-//	collection_sphere_->SetSphereRadius(200.0f);
+	collection_sphere_ = CreateDefaultSubobject<USphereComponent>(TEXT("CollectionSphere"));
+	collection_sphere_->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	collection_sphere_->SetSphereRadius(200.0f);
 //
 //    available_tool_.Add(EAvatarTool::None, nullptr);
 //	available_tool_.Add(EAvatarTool::MeasureTool, nullptr);
@@ -176,11 +176,6 @@ void ADuneAvatar::Tick(float delta_seconds)
 //    update_viable_interactions();
 }
 
-//void ADuneAvatar::OnResetVR()
-//{
-//	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
-//}
-
 void ADuneAvatar::Move(const FInputActionValue& Value)
 {
     // input is a Vector2D
@@ -215,6 +210,29 @@ void ADuneAvatar::Look(const FInputActionValue& Value)
         AddControllerYawInput(LookAxisVector.X);
         AddControllerPitchInput(LookAxisVector.Y);
     }
+}
+
+
+
+bool ADuneAvatar::add_collectible(UPickupModel * collectible_data)
+{
+    if (collectible_data != nullptr)
+    {
+        UE_LOG(LogClass, Log, TEXT("Player collected: %s"), *collectible_data->get_name());
+        collectibles_.Add(collectible_data);
+        return true;
+    }
+    else
+    {
+        UE_LOG(LogClass, Warning, TEXT("Collectible returned null data."));
+        return false;
+    }
+}
+
+
+TArray<UPickupModel*> ADuneAvatar::get_collectibles() const
+{
+    return collectibles_;
 }
 
 //void ADuneAvatar::detect_viable_interactions()
@@ -285,11 +303,6 @@ void ADuneAvatar::Look(const FInputActionValue& Value)
 //        }
 //    }
 //}
-//
-//TArray<UPickupModel*> ADuneAvatar::get_collectibles() const
-//{
-//    return collectibles_;
-//}
 
 //UUserWidget * ADuneAvatar::display_pickup(TSubclassOf<UAvatarMenu> menu_type)
 //{
@@ -346,22 +359,7 @@ void ADuneAvatar::Look(const FInputActionValue& Value)
 //{
 //    return viable_interactions_;
 //}
-//
-//bool ADuneAvatar::add_collectible(UPickupModel * collectible_data)
-//{
-//    if (collectible_data != nullptr)
-//    {
-//        UE_LOG(LogClass, Log, TEXT("Player collected: %s"), *collectible_data->get_name());
-//        collectibles_.Add(collectible_data);
-//        return true;
-//    }
-//    else
-//    {
-//        UE_LOG(LogClass, Warning, TEXT("Collectible returned null data."));
-//        return false;
-//    }
-//}
-//
+
 //void ADuneAvatar::set_inspect_mode()
 //{
 //    auto tool = Cast<UAvatarTool>(mode_);

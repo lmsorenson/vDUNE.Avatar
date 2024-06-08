@@ -44,13 +44,13 @@ class VDUNE_AVATAR_API ADuneAvatar : public AUserBase//, public DecoratorBase
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
     UInputAction* LookAction;
 
-//    /** Collection Sphere */
-//    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Pickup, meta = (AllowPrivateAccess = "true"))
-//    class USphereComponent* collection_sphere_;
-//
-//    /** Inventory */
-//    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Inventory, meta = (AllowPrivateAccess = "true"))
-//    TArray<class UPickupModel *>  collectibles_;
+    /** Collection Sphere */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Pickup, meta = (AllowPrivateAccess = "true"))
+    class USphereComponent* collection_sphere_;
+
+    /** Inventory */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Inventory, meta = (AllowPrivateAccess = "true"))
+    TArray<class UPickupModel *>  collectibles_;
 //
 //    /** Interaction objects */
 //    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Inventory, meta = (AllowPrivateAccess = "true"))
@@ -98,8 +98,8 @@ protected:
 //    UFUNCTION(BlueprintCallable, Category=Pickup)
 //    void update_viable_interactions();
 //
-//	UFUNCTION(BlueprintCallable, Category=Inventory)
-//	TArray<class UPickupModel*> get_collectibles() const;
+	UFUNCTION(BlueprintCallable, Category=Inventory)
+	TArray<class UPickupModel*> get_collectibles() const;
 //
 //    UFUNCTION(BlueprintCallable, Category=Inventory)
 //    class UUserWidget * display_pickup(TSubclassOf<class UAvatarMenu> menu_type);
@@ -113,13 +113,13 @@ protected:
 public:
 	FORCEINLINE class USpringArmComponent* get_camera_boom() const { return camera_boom_; }
 	FORCEINLINE class UCameraComponent* get_follow_camera() const { return follow_camera_; }
-//    FORCEINLINE class USphereComponent* get_collection_sphere() const { return collection_sphere_; }
+    FORCEINLINE class USphereComponent* get_collection_sphere() const { return collection_sphere_; }
 
 //    UFUNCTION(BlueprintCallable, Category=Mode)
 //    void set_mode(EAvatarMode mode);
-//
-//    bool add_collectible(class UPickupModel * collectible_data);
-//
+
+    bool add_collectible(class UPickupModel * collectible_data);
+
 //    void try_interaction();
 //
 //    void set_inspect_mode();
